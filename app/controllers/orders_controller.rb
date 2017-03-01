@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
      before_action :authenticate_user!, only: [:create]
 
+
    def create
      @order = Order.new(order_params)
      @order.user = current_user
@@ -29,7 +30,6 @@ class OrdersController < ApplicationController
         @product_lists = @order.product_lists
       end
 
-      
       def pay_with_alipay
         @order = Order.find_by_token(params[:id])
         @order.set_payment_with!("alipay")
@@ -45,6 +45,8 @@ class OrdersController < ApplicationController
 
         redirect_to order_path(@order.token), notice: "使用微信成功完成付款"
       end
+
+
 
    private
 
